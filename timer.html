@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>МОСКВА — Таймер</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f6f4f0;
+      color: #222;
+      font-family: 'Playfair Display', serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    h1 {
+      font-size: 12vw;
+      margin: 0 0 5vh;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      color: #1a1a1a;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    #timer {
+      font-size: 6vw;
+      color: #333;
+      padding: 3vw 5vw;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 14vw;
+      }
+      #timer {
+        font-size: 7vw;
+        padding: 4vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>МОСКВА</h1>
+  <div id="timer"></div>
+
+  <script>
+    const deadline = new Date("June 7, 2025 23:25:00").getTime();
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const diff = deadline - now;
+
+      if (diff <= 0) {
+        document.getElementById("timer").innerHTML = "ВРЕМЯ НАСТАЛО";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("timer").innerHTML =
+        `${days} дн ${hours} ч ${minutes} мин ${seconds} сек`;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
